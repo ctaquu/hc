@@ -2,11 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}HolyCode test...{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <h1>HolyCode Test...</h1>
+        <div>
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="trips">trips</a></li>
+                <li><a href="new">new trip</a></li>
+            </ul>
+        </div>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

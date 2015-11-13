@@ -19,9 +19,48 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Trip", mappedBy="trip")
+     */
+    protected $trips;
+
     public function __construct()
     {
-        parent::__construct();
-        // your own logic
+        $this->trips = new ArrayCollection();
+    }
+
+
+    /**
+     * Add trip
+     *
+     * @param \AppBundle\Entity\Trip $trip
+     *
+     * @return User
+     */
+    public function addTrip(\AppBundle\Entity\Trip $trip)
+    {
+        $this->trips[] = $trip;
+
+        return $this;
+    }
+
+    /**
+     * Remove trip
+     *
+     * @param \AppBundle\Entity\Trip $trip
+     */
+    public function removeTrip(\AppBundle\Entity\Trip $trip)
+    {
+        $this->trips->removeElement($trip);
+    }
+
+    /**
+     * Get trips
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTrips()
+    {
+        return $this->trips;
     }
 }

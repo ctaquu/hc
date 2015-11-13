@@ -1,5 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    New...
+    <h2>New..<h2/>
+    {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+        {#<p>Username: {{ app.user.username }}</p>#}
+        {#<p>Username2: {{ username }}</p>#}
+    {#{% else %}#}
+        {#<p>do login</p>#}
+    {#{% endif %}#}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {#<form action="upload" method="post" enctype="multipart/form-data">#}
+        {#<label for="txt_name">name::: </label><input type="text" id="imageName" name="imageName" /><br />#}
+        {#<label for="imageFile ">file::: </label><input type="file" id="imageFile" name="imageFile" /><br />#}
+        {#<input type="submit" value="Upload..." />#}
+    {#</form>#}
 {% endblock %}

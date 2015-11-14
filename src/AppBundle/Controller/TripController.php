@@ -75,7 +75,7 @@ class TripController extends Controller
         if ($form->isValid()) {
 
             // set params
-            $trip->setUser($user);
+            $trip->setFosUser($user);
 
             // get entity manager
             $em = $this->getDoctrine()->getManager();

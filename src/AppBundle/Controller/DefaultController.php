@@ -124,7 +124,7 @@ class DefaultController extends Controller
        $x = $trip->getUser()->getUsername();*/
 
         // list user's trips
-        $id = 2;
+/*        $id = 2;
         $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
             ->find($id);
@@ -137,7 +137,28 @@ class DefaultController extends Controller
             var_dump($item->getName());
         }
 
+        die;*/
+
+        $id = 1;
+        $user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->findOneByIdJoinedToTrip($id);
+//            ->find($id);
+
+
+        foreach ($user->getTrips() as $trip) {
+//            echo 'trip   ';
+            echo $trip->getName();
+        }
+
         die;
+//        var_dump($user);
+//        die;
+//        $x = count($user->getTrips());
+//        $x = count($user->getTrip());
+
+//        $x = $user->getUsername();
+//        $x = $user->getUsername();
 
         $response = new Response();
         $response->setContent(json_encode($x));

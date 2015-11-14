@@ -23,7 +23,13 @@ class TripController extends Controller
             throw new AccessDeniedException();
         }
 
-        return $this->render('default/index.html.twig');
+        $user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find($this->getUser());
+
+        return $this->render('trip/index.html.twig', [
+            "trips"     => $user->getTrips(),
+        ]);
     }
 
     /**
@@ -89,7 +95,7 @@ class TripController extends Controller
         }
 
         // render view
-        return $this->render('default/new.html.twig', array(
+        return $this->render('trip/new.html.twig', array(
             'form' => $form->createView(),
         ));
     }

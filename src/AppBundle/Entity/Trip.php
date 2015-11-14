@@ -29,9 +29,9 @@ class Trip
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="trips")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="fos_user_id", referencedColumnName="id")
      */
-    protected $user;
+    protected $fos_user;
 
 
     /**
@@ -181,5 +181,29 @@ class Trip
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set fosUser
+     *
+     * @param \AppBundle\Entity\User $fosUser
+     *
+     * @return Trip
+     */
+    public function setFosUser(\AppBundle\Entity\User $fosUser = null)
+    {
+        $this->fos_user = $fosUser;
+
+        return $this;
+    }
+
+    /**
+     * Get fosUser
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getFosUser()
+    {
+        return $this->fos_user;
     }
 }

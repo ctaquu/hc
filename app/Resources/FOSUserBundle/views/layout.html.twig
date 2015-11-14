@@ -36,9 +36,9 @@
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <div id="nav">
         <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/trips">trips</a></li>
-            <li><a href="/new">new trip</a></li>
+            <li><a href="{{ path('homepage') }}">home</a></li>
+            <li><a href="{{ path('trip_create') }}">trip new</a></li>
+            <li><a href="{{ path('test') }}">test</a></li>
         </ul>
     </div>
 {% endif %}

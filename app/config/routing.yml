@@ -1,6 +1,32 @@
-app:
-    resource: @AppBundle/Controller/
-    type:     annotation
-
+######## FOS... ########
+##########################
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+######## main... #########
+##########################
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Trip:index }
+
+
+######## trips... ########
+##########################
+trip_list:
+    path:     /trip/list
+    defaults: { _controller: AppBundle:Trip:index }
+
+trip_show:
+    path:     /trip/show/{slug}
+    defaults: { _controller: AppBundle:Trip:show }
+
+trip_create:
+    path:     /trip/create
+    defaults: { _controller: AppBundle:Trip:create }
+
+
+######## testing... #######
+###########################
+test:
+    path:     /test
+    defaults: { _controller: AppBundle:Default:test }

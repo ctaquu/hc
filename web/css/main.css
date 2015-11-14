@@ -1,0 +1,10 @@
+#nav ul li {
+    display: inline;
+    margin-right: 1em;
+    border: 1px solid;
+}
+
+#nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+}

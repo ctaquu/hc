@@ -11,7 +11,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity
  * @ORM\Table(name="trip")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\TripRepository")
  * @Vich\Uploadable
  */
 class Trip

@@ -56,10 +56,10 @@ class Trip
      *
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="trip_xml", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="trip_xml", fileNameProperty="xmlName")
      * @var File
      */
-    private $imageFile; //TODO: change name from image to xml
+    private $xmlFile;
 
     /**
      *
@@ -67,7 +67,7 @@ class Trip
      *
      * @var string
      */
-    private $imageName;
+    private $xmlName;
 
     /**
      *
@@ -84,13 +84,13 @@ class Trip
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
      *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $xml
      */
-    public function setImageFile(File $image = null)
+    public function setXmlFile(File $xml = null)
     {
-        $this->imageFile = $image;
+        $this->xmlFile = $xml;
 
-        if ($image) {
+        if ($xml) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTime('now');
@@ -100,25 +100,25 @@ class Trip
     /**
      * @return File
      */
-    public function getImageFile()
+    public function getXmlFile()
     {
-        return $this->imageFile;
+        return $this->xmlFile;
     }
 
     /**
-     * @param string $imageName
+     * @param string $xmlName
      */
-    public function setImageName($imageName)
+    public function setXmlName($xmlName)
     {
-        $this->imageName = $imageName;
+        $this->xmlName = $xmlName;
     }
 
     /**
      * @return string
      */
-    public function getImageName()
+    public function getXmlName()
     {
-        return $this->imageName;
+        return $this->xmlName;
     }
 
 

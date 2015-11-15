@@ -82,7 +82,7 @@ class TripController extends Controller
         $form = $this->createFormBuilder($trip)
             ->setMethod('POST')
             ->add('name', 'text')
-            ->add('imageFile', 'file')
+            ->add('xmlFile', 'file')
             ->add('save', 'submit', array('label' => 'Create Task'))
             ->getForm();
 
@@ -103,19 +103,6 @@ class TripController extends Controller
 
             // save trips in db
             $this->create_trip_points($trip, 'json');
-//            $this->create_trip_points($trip);
-
-//            // set points
-//            $xmlDataUrl = $trip->getImageName();
-//
-//            // get xml text data
-//            $xmlData = file_get_contents("../web/xml/trips/$xmlDataUrl");
-//
-//            // then into php object
-//            $xml = simplexml_load_string($xmlData);
-//
-//            // and into trip we go...
-//            $trip->setPointsJson(json_encode($xml->trk->trkseg));
 
             $em->flush();
 
@@ -140,7 +127,7 @@ class TripController extends Controller
     private function create_trip_points($trip, $method='db')
     {
         // get trip's file name from db
-        $xmlDataUrl = $trip->getImageName();
+        $xmlDataUrl = $trip->getXmlName();
 
         // get xml text data
         $xmlData = file_get_contents("../web/xml/trips/$xmlDataUrl");
@@ -190,7 +177,7 @@ class TripController extends Controller
     private function create_trip_points_by_json($trip)
     {
         // set points
-        $xmlDataUrl = $trip->getImageName();
+        $xmlDataUrl = $trip->getXmlName();
 
         // get xml text data
         $xmlData = file_get_contents("../web/xml/trips/$xmlDataUrl");

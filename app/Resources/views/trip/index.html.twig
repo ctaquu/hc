@@ -5,13 +5,13 @@
 
     <table>
         <thead>
-            <td>name</td>
+            <td>name/link</td>
             <td>file</td>
         </thead>
     {% for trip in trips %}
             <tr>
                 <td><a href="{{ path('trip_show', {'slug': trip.id}) }}">{{ trip.name }}</a></td>
-                <td><a href="{{ asset('xml/trips/') ~ trip.imageName }}" target="_blank">{{ trip.imageName }}</a></td>
+                <td><a href="{{ asset('xml/trips/') ~ trip.xmlName }}" target="_blank">{{ trip.xmlName }}</a></td>
             </tr>
     {% endfor %}
     </table>

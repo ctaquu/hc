@@ -69,7 +69,7 @@
             {# ajax working example importing data directly from file #}
             $.ajax({
                 type: "GET",
-                url: "{{ asset('xml/trips/') ~ trip.imageName }}",
+                url: "{{ asset('xml/trips/') ~ trip.xmlName }}",
                 dataType: "xml",
                 success: function (xml) {
 //                    debugger;

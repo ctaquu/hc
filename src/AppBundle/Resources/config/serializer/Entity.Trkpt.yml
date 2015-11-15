@@ -1,0 +1,18 @@
+#src/AppBundle/Resources/config/serializer/Entity.Trkpt.yml
+AppBundle\Entity\Trkpt:
+
+    exclusion_policy: NONE
+    properties:
+        id:
+            exclude: true
+            type: integer
+        lat:
+            xml_attribute: true
+            type: double
+        lon:
+            xml_attribute: true
+            type: double
+        ele:
+            type: double
+        trip:
+            exclude: true

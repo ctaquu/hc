@@ -23,10 +23,3 @@ trip_show:
 trip_create:
     path:     /trip/create
     defaults: { _controller: AppBundle:Trip:create }
-
-
-######## testing... #######
-###########################
-test:
-    path:     /test
-    defaults: { _controller: AppBundle:Default:test }

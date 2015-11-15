@@ -22,7 +22,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "braincrafted/bootstrap-bundle": "~2.1",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "vich/uploader-bundle": "~0.1"
+        "vich/uploader-bundle": "~0.1",
+        "jms/serializer-bundle": "^1.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -3,11 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Trip;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Trkpt;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\Validator\Constraints as Assert; //TODO: validation!
 
 class TripController extends Controller
 {
@@ -43,8 +44,19 @@ class TripController extends Controller
             throw new AccessDeniedException();
         }
 
-        return new Response('showAction... ' . $slug);
-        // .....
+        // get trip by id/slug
+        $trip = $this->getDoctrine()
+            ->getRepository('AppBundle:Trip')
+            ->find($slug);
+
+        // json to php object from db column (trip.points_json)
+        $points = json_decode($trip->getPointsJson());
+
+        return $this->render('trip/one.html.twig', [
+            'points'    => $points->trkpt,
+            "trip"      => $trip,
+        ]);
+
     }
 
     /**
@@ -64,7 +76,7 @@ class TripController extends Controller
 
 
         // create a task and give it some dummy data for this example
-        $trip = new Trip();
+        $trip = new Trip;
 
         // generate form
         $form = $this->createFormBuilder($trip)
@@ -80,7 +92,7 @@ class TripController extends Controller
         // if data submitted
         if ($form->isValid()) {
 
-            // set params
+            // set creator
             $trip->setFosUser($user);
 
             // get entity manager
@@ -88,16 +100,106 @@ class TripController extends Controller
 
             // save to db
             $em->persist($trip);
+
+            // save trips in db
+            $this->create_trip_points($trip, 'json');
+//            $this->create_trip_points($trip);
+
+//            // set points
+//            $xmlDataUrl = $trip->getImageName();
+//
+//            // get xml text data
+//            $xmlData = file_get_contents("../web/xml/trips/$xmlDataUrl");
+//
+//            // then into php object
+//            $xml = simplexml_load_string($xmlData);
+//
+//            // and into trip we go...
+//            $trip->setPointsJson(json_encode($xml->trk->trkseg));
+
             $em->flush();
 
+            // preview trip
+            return $this->redirect($this->generateUrl('trip_show', ['slug' => $trip->getId()]));
+
             // redirect to show updated list of trips
-            return $this->redirect($this->generateUrl('trip_list'));
+//            return $this->redirect($this->generateUrl('trip_list'));
         }
 
         // render view
         return $this->render('trip/new.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * save trips in db -> two options: - json (in trip table as string(json) column: points_json)
+     *                                  - db   (in separate table: Trkpt, each point as new row)
+     * @param string $method
+     */
+    private function create_trip_points($trip, $method='db')
+    {
+        // get trip's file name from db
+        $xmlDataUrl = $trip->getImageName();
+
+        // get xml text data
+        $xmlData = file_get_contents("../web/xml/trips/$xmlDataUrl");
+
+        // then into php object
+        $xml = simplexml_load_string($xmlData);
+
+//        if(!isset($xml->trk->trkseg->trkpt))
+//            throw new InvalidArgumentException();
+
+
+        // separate just needed array
+        $points = $xml->trk->trkseg->trkpt;
+
+        // do it as requested
+        if($method === 'db') {
+            $this->create_trip_points_by_db($points, $trip);
+        } else if($method === 'json') {
+            $this->create_trip_points_by_json($trip);
+        }
+    }
+
+    private function create_trip_points_by_db($points, $trip)
+    {
+        // get entity manager
+        $em = $this->getDoctrine()->getManager();
+
+        // create all track/trip points
+        foreach ($points as $trkpt) {
+
+            $t = new Trkpt;
+
+            $t->setLat($trkpt->attributes()->lat);
+            $t->setLon($trkpt->attributes()->lon);
+            $t->setEle($trkpt->ele);
+            $t->setTime(new \DateTime($trkpt->time));
+            $t->setTrip($trip);
+
+            $em->persist($t);
+
+        }
+
+        // save to db
+        $em->flush();
+    }
+
+    private function create_trip_points_by_json($trip)
+    {
+        // set points
+        $xmlDataUrl = $trip->getImageName();
+
+        // get xml text data
+        $xmlData = file_get_contents("../web/xml/trips/$xmlDataUrl");
+
+        // then into php object
+        $xml = simplexml_load_string($xmlData);
+
+        // and into trip we go...
+        $trip->setPointsJson(json_encode($xml->trk->trkseg));
     }
 
 }

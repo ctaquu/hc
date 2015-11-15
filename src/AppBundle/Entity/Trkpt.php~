@@ -1,44 +1,79 @@
 <?php
-// src/AppBundle/Entity/Coordinate.php
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+//use JMS\Serializer\Annotation\XmlAttribute;
+//use JMS\Serializer\Annotation\XmlValue;
+//use JMS\Serializer\Annotation\XmlRoot;
+//use JMS\Serializer\Annotation as JMS;
+
 /**
+ *
+ * TripPoint
+ *
+ * @ORM\Table()
  * @ORM\Entity
- * @ORM\Table(name="coordinate")
  */
-class Coordinate
+class Trkpt
 {
+
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $lat;
-
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $lon;
-
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $ele;
-
-    /**
-     * @ORM\Column(type="datetime")
      *
-     * @var \DateTime
+     * @var string
+     *
+     * @ORM\Column(name="lat", type="decimal")
      */
-    protected $time;
+    private $lat;
+
+    /**
+     *
+     * @var string
+     *
+     * @ORM\Column(name="lon", type="decimal")
+     */
+    private $lon;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ele", type="decimal")
+     */
+    private $ele;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="time", type="datetime")
+     */
+    private $time;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Trip", inversedBy="trkseg")
+     * @ORM\JoinColumn(name="trip_id", referencedColumnName="id")
+     */
+    protected $trip;
+
+    /**
+     * link to trip on import form xml
+     */
+    public function attach_trip_id()
+    {
+        //TODO: attach trip id
+        var_dump('!!!!!!!! attach_trip_id !!!!!!!!!!!!!');
+    }
 
     /**
      * Get id
@@ -55,7 +90,7 @@ class Coordinate
      *
      * @param string $lat
      *
-     * @return Coordinate
+     * @return TripPoint
      */
     public function setLat($lat)
     {
@@ -79,7 +114,7 @@ class Coordinate
      *
      * @param string $lon
      *
-     * @return Coordinate
+     * @return TripPoint
      */
     public function setLon($lon)
     {
@@ -103,7 +138,7 @@ class Coordinate
      *
      * @param string $ele
      *
-     * @return Coordinate
+     * @return TripPoint
      */
     public function setEle($ele)
     {
@@ -127,7 +162,7 @@ class Coordinate
      *
      * @param \DateTime $time
      *
-     * @return Coordinate
+     * @return TripPoint
      */
     public function setTime($time)
     {
@@ -144,5 +179,29 @@ class Coordinate
     public function getTime()
     {
         return $this->time;
+    }
+
+    /**
+     * Set trip
+     *
+     * @param \AppBundle\Entity\Trip $trip
+     *
+     * @return TripPoint
+     */
+    public function setTrip(\AppBundle\Entity\Trip $trip = null)
+    {
+        $this->trip = $trip;
+
+        return $this;
+    }
+
+    /**
+     * Get trip
+     *
+     * @return \AppBundle\Entity\Trip
+     */
+    public function getTrip()
+    {
+        return $this->trip;
     }
 }

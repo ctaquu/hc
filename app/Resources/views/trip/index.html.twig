@@ -1,19 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Trips listing 666...</h2>.
+    <h2>Trips listing...</h2>.
 
     <table>
         <thead>
             <td>name</td>
             <td>file</td>
-            <td>date</td>
         </thead>
     {% for trip in trips %}
             <tr>
                 <td><a href="{{ path('trip_show', {'slug': trip.id}) }}">{{ trip.name }}</a></td>
                 <td><a href="{{ asset('xml/trips/') ~ trip.imageName }}" target="_blank">{{ trip.imageName }}</a></td>
-                <td>some date...</td>
             </tr>
     {% endfor %}
     </table>

@@ -1,0 +1,13 @@
+#src/FooBundle/Resources/config/serializer/Entity.Trip.yml
+AppBundle\Entity\Trip:
+
+    exclusion_policy: ALL
+    properties:
+        name:
+            expose: true
+            type: string
+        trkse:
+            expose: true
+            max_depth: 5
+            xml_list:
+                entry_name: trkpt

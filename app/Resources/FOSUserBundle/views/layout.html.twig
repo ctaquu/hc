@@ -2,8 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-    {#<script src="{{ asset('js/jquery.min.js') }}"></script>#}
 </head>
 <body>
 <h1>HolyCode Test...</h1>
@@ -14,8 +12,7 @@
             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
         </a>
     {% else %}
-        {#<a href="{{ path('fos_user_security_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>#}
-        <a href="/register">register</a>&nbsp;&nbsp;
+        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
         <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
     {% endif %}
 </div>
@@ -36,9 +33,8 @@
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <div id="nav">
         <ul>
-            <li><a href="{{ path('homepage') }}">home</a></li>
+            <li><a href="{{ path('homepage') }}">home/list</a></li>
             <li><a href="{{ path('trip_create') }}">trip new</a></li>
-            <li><a href="{{ path('test') }}">test</a></li>
         </ul>
     </div>
 {% endif %}

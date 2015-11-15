@@ -6,8 +6,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+//use Symfony\Component\Validator\Constraints as Assert; //TODO: validation!
+//use JMS\Serializer\Annotation\XmlAttribute;
+//use JMS\Serializer\Annotation\XmlValue;
+//use JMS\Serializer\Annotation\XmlRoot;
 use Doctrine\Common\Collections\ArrayCollection;
+//use JMS\Serializer\Annotation as JMS;
 
+// * @JMS\XmlRoot("trk")
 /**
  * @ORM\Entity
  * @ORM\Table(name="trip")
@@ -50,13 +56,13 @@ class Trip
     /**
      * @ORM\Column(type="string", length=65535)
      */
-    protected $points_json = '{}';
+    protected $points_json;
 
     /**
      *
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="trip_xml", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
      * @var File
      */
     private $imageFile; //TODO: change name from image to xml
@@ -226,63 +232,5 @@ class Trip
     public function getFosUser()
     {
         return $this->fos_user;
-    }
-
-    /**
-     * Set pointsJson
-     *
-     * @param string $pointsJson
-     *
-     * @return Trip
-     */
-    public function setPointsJson($pointsJson)
-    {
-        $this->points_json = $pointsJson;
-
-        return $this;
-    }
-
-    /**
-     * Get pointsJson
-     *
-     * @return string
-     */
-    public function getPointsJson()
-    {
-        return $this->points_json;
-    }
-
-    /**
-     * Add trkseg
-     *
-     * @param \AppBundle\Entity\Trkpt $trkseg
-     *
-     * @return Trip
-     */
-    public function addTrkseg(\AppBundle\Entity\Trkpt $trkseg)
-    {
-        $this->trkseg[] = $trkseg;
-
-        return $this;
-    }
-
-    /**
-     * Remove trkseg
-     *
-     * @param \AppBundle\Entity\Trkpt $trkseg
-     */
-    public function removeTrkseg(\AppBundle\Entity\Trkpt $trkseg)
-    {
-        $this->trkseg->removeElement($trkseg);
-    }
-
-    /**
-     * Get trkseg
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTrkseg()
-    {
-        return $this->trkseg;
     }
 }

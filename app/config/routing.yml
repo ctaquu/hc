@@ -9,6 +9,10 @@ homepage:
     path:     /
     defaults: { _controller: AppBundle:Trip:index }
 
+error:
+    path:     /error/{message}
+    defaults: { _controller: AppBundle:Default:error }
+
 
 ######## trips... ########
 ##########################

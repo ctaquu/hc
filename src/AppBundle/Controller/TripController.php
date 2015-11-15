@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\Validator\Constraints as Assert; //TODO: validation!
 
 class TripController extends Controller
 {
@@ -98,12 +97,15 @@ class TripController extends Controller
             // get entity manager
             $em = $this->getDoctrine()->getManager();
 
-            // save to db
+            // save trip
             $em->persist($trip);
 
             // save trips in db
-            $this->create_trip_points($trip, 'json');
+            if(!$this->create_trip_points($trip, 'json'))
+                // if xml not valid show error page
+                return $this->redirect($this->generateUrl('error', ['message' => 'invalid xml']));
 
+            // up with him
             $em->flush();
 
             // preview trip
@@ -122,7 +124,9 @@ class TripController extends Controller
     /**
      * save trips in db -> two options: - json (in trip table as string(json) column: points_json)
      *                                  - db   (in separate table: Trkpt, each point as new row)
-     * @param string $method
+     * @param $trip \AppBundle\Entity\Trip
+     * @param string $method string
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     private function create_trip_points($trip, $method='db')
     {
@@ -135,8 +139,9 @@ class TripController extends Controller
         // then into php object
         $xml = simplexml_load_string($xmlData);
 
-//        if(!isset($xml->trk->trkseg->trkpt))
-//            throw new InvalidArgumentException();
+        // check if is valid gpx structure
+        if(!isset($xml->trk->trkseg) || !isset($xml->trk->trkseg->trkpt))
+            return false;
 
 
         // separate just needed array
@@ -148,8 +153,16 @@ class TripController extends Controller
         } else if($method === 'json') {
             $this->create_trip_points_by_json($trip);
         }
+
+        return true;
     }
 
+    /**
+     * saving route data in separate table: trkpt each point being new row in db
+     *
+     * @param $points array of points from .gpx file
+     * @param $trip \AppBundle\Entity\Trip
+     */
     private function create_trip_points_by_db($points, $trip)
     {
         // get entity manager
@@ -174,6 +187,11 @@ class TripController extends Controller
         $em->flush();
     }
 
+    /**
+     * saving route data in table trip, column points_json as json object
+     *
+     * @param $trip \AppBundle\Entity\Trip
+     */
     private function create_trip_points_by_json($trip)
     {
         // set points

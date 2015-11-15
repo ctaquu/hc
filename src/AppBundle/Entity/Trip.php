@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -58,6 +59,12 @@ class Trip
      *
      * @Vich\UploadableField(mapping="trip_xml", fileNameProperty="xmlName")
      * @var File
+     *
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"application/xml"},
+     *     mimeTypesMessage = "Please upload a valid GPX"
+     * )
      */
     private $xmlFile;
 

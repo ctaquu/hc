@@ -22,4 +22,13 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig');
     }
+
+    public function errorAction($message)
+    {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw new AccessDeniedException();
+        }
+
+        return $this->render('default/error.html.twig', ['message' => $message]);
+    }
 }

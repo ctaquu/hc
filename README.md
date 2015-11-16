@@ -20,5 +20,3 @@ parameters: # (of importance...)
 =====================================================================    
     
 live:   http://54.229.209.156/
-
-github: git@github.com:ctaquu/hc.git

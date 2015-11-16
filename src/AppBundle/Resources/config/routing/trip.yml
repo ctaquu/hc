@@ -1,0 +1,15 @@
+trip_list:
+    path:     /list
+    defaults: { _controller: AppBundle:Trip:index }
+
+trip_show:
+    path:     /show/{slug}
+    defaults: { _controller: AppBundle:Trip:show }
+
+trip_create:
+    path:     /create
+    defaults: { _controller: AppBundle:Trip:create }
+
+sisa:
+    path: /sisa
+    defaults: { _controller: AppBundle:Trip:sisa }

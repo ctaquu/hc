@@ -3,27 +3,14 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-######## main... #########
-##########################
 homepage:
     path:     /
     defaults: { _controller: AppBundle:Trip:index }
 
-error:
-    path:     /error/{message}
-    defaults: { _controller: AppBundle:Default:error }
+_trip:
+    resource: "@AppBundle/Resources/config/routing/trip.yml"
+    prefix:   /trip
 
-
-######## trips... ########
-##########################
-trip_list:
-    path:     /trip/list
-    defaults: { _controller: AppBundle:Trip:index }
-
-trip_show:
-    path:     /trip/show/{slug}
-    defaults: { _controller: AppBundle:Trip:show }
-
-trip_create:
-    path:     /trip/create
-    defaults: { _controller: AppBundle:Trip:create }
+_error:
+    resource: "@AppBundle/Resources/config/routing/error.yml"
+    prefix:   /error

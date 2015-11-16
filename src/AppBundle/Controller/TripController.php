@@ -32,6 +32,11 @@ class TripController extends Controller
         ]);
     }
 
+    public function sisaAction(Request $request)
+    {
+        return new Response('sisa akcija!!!');
+    }
+
     /**
      * show one trip
      * @param $slug trip id

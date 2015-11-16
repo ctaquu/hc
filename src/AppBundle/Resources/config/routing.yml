@@ -1,0 +1,42 @@
+#_welcome:
+#    path:     /
+#    defaults: { _controller: AcmeDemoBundle:Welcome:index }
+#
+#_demo_secured:
+#    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
+#    type:     annotation
+#
+#_demo:
+#    resource: "@AcmeDemoBundle/Controller/DemoController.php"
+#    type:     annotation
+#    prefix:   /demo
+
+####### FOS... ########
+##########################
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+######## main... #########
+##########################
+homepage:
+    path:     /
+    defaults: { _controller: AppBundle:Trip:index }
+
+error:
+    path:     /error/{message}
+    defaults: { _controller: AppBundle:Default:error }
+
+
+######## trips... ########
+##########################
+trip_list:
+    path:     /trip/list
+    defaults: { _controller: AppBundle:Trip:index }
+
+trip_show:
+    path:     /trip/show/{slug}
+    defaults: { _controller: AppBundle:Trip:show }
+
+trip_create:
+    path:     /trip/create
+    defaults: { _controller: AppBundle:Trip:create }

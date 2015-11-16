@@ -27,14 +27,10 @@ class TripController extends Controller
             ->getRepository('AppBundle:User')
             ->find($this->getUser());
 
-        return $this->render('trip/index.html.twig', [
+//        return $this->render('trip/index.html.twig', [
+        return $this->render('AppBundle:Trip:index.html.twig', [
             "trips"     => $user->getTrips(),
         ]);
-    }
-
-    public function sisaAction(Request $request)
-    {
-        return new Response('sisa akcija!!!');
     }
 
     /**
@@ -56,7 +52,7 @@ class TripController extends Controller
         // json to php object from db column (trip.points_json)
         $points = json_decode($trip->getPointsJson());
 
-        return $this->render('trip/one.html.twig', [
+        return $this->render('AppBundle:Trip:one.html.twig', [
             'points'    => $points->trkpt,
             "trip"      => $trip,
         ]);
@@ -121,7 +117,7 @@ class TripController extends Controller
         }
 
         // render view
-        return $this->render('trip/new.html.twig', array(
+        return $this->render('AppBundle:Trip:new.html.twig', array(
             'form' => $form->createView(),
         ));
     }

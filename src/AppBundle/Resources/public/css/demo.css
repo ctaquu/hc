@@ -3,7 +3,7 @@ body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 }
 h1.title {
-    color: #ac2925;
+    color: yellow;
     font-size: 45px;
     padding-bottom: 30px;
 }
@@ -99,4 +99,34 @@ ul#demo-list a {
 .sf-reset .symfony-content pre {
     white-space: pre;
     font-family: monospace;
+}
+
+td {
+    padding: 1em !important;
+}
+
+#map_canvas {
+    width: 900px; height: 500px;
+}
+
+div#nav ul li {
+    margin: 1em;
+    display: inline;
+    font-weight: bold;
+}
+
+div#nav {
+    margin: 1em 0;
+}
+
+.form-group {
+    height: 3em;
+}
+
+label.control-label.required {
+    margin-right: 1em;
+}
+
+div#form {
+    margin: 1em;
 }

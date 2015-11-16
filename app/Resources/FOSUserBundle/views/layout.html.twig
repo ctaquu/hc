@@ -1,45 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-</head>
-<body>
-<h1>HolyCode Test...</h1>
-<div>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
-            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-        </a>
-    {% else %}
-        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-    {% endif %}
-</div>
+{% extends 'AppBundle::layout.html.twig' %}
 
-{% for type, messages in app.session.flashBag.all %}
-    {% for message in messages %}
-        <div class="{{ type }}">
-            {{ message|trans({}, 'FOSUserBundle') }}
-        </div>
-    {% endfor %}
-{% endfor %}
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+    {#<meta charset="UTF-8" />#}
+{#</head>#}
+{#<body>#}
+{#<h1>HolyCode Test...</h1>#}
+{#<div>#}
+    {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+        {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+        {#<a href="{{ path('fos_user_security_logout') }}">#}
+            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+        {#</a>#}
+    {#{% else %}#}
+        {#<a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>#}
+        {#<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+    {#{% endif %}#}
+{#</div>#}
 
-<div>
-    {% block fos_user_content %}
-    {% endblock fos_user_content %}
-</div>
-
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    <div id="nav">
-        <ul>
-            <li><a href="{{ path('homepage') }}">home/list</a></li>
-            <li><a href="{{ path('trip_create') }}">trip new</a></li>
-        </ul>
+{#{% for type, messages in app.session.flashBag.all %}#}
+    {#{% for message in messages %}#}
+        {#<div class="{{ type }}">#}
+            {#{{ message|trans({}, 'FOSUserBundle') }}#}
+        {#</div>#}
+    {#{% endfor %}#}
+{#{% endfor %}#}
+{% block content %}
+    <div>
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
     </div>
-{% endif %}
+{% endblock %}
 
-{% block body %}{% endblock %}
+{#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+    {#<div id="nav">#}
+        {#<ul>#}
+            {#<li><a href="{{ path('homepage') }}">home/list</a></li>#}
+            {#<li><a href="{{ path('trip_create') }}">trip new</a></li>#}
+        {#</ul>#}
+    {#</div>#}
+{#{% endif %}#}
 
-</body>
-</html>
+{#{% block body %}{% endblock %}#}
+
+{#</body>#}
+{#</html>#}
+
+{#{% extends "TwigBundle::layout.html.twig" %}#}
+
+{#{% block title 'HolyCode Test' %}#}
+
+{#&#123;&#35;{% block body %}&#35;&#125;#}
+
+
+
+    {#&#123;&#35;<div class="block">&#35;&#125;#}
+        {#{% block content %}#}
+            {#<h1>sisa...</h1>#}
+        {#{% endblock %}#}
+    {#&#123;&#35;</div>&#35;&#125;#}
+
+{#&#123;&#35;{% endblock %}&#35;&#125;#}

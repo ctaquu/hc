@@ -20,7 +20,7 @@ class DefaultController extends Controller
             throw new AccessDeniedException();
         }
 
-        return $this->render('default/index.html.twig');
+        return $this->render('AppBundle:Trip:index.html.twig');
     }
 
     public function errorAction($message)
@@ -29,6 +29,6 @@ class DefaultController extends Controller
             throw new AccessDeniedException();
         }
 
-        return $this->render('default/error.html.twig', ['message' => $message]);
+        return $this->render('AppBundle:Error:error.html.twig', ['message' => $message]);
     }
 }
